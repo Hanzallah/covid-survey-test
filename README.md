@@ -1,1 +1,0 @@
-# covid-survey-test
