@@ -1,5 +1,6 @@
 import 'package:covid_survey/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class Survey extends StatefulWidget {
   @override
@@ -131,7 +132,12 @@ class _SurveyState extends State<Survey> {
                   SizedBox(height: 15),
                   // Birth date
                   GestureDetector(
-                    onTap: () => _selectDate(context),
+                    onTap: () {
+                      _selectDate(context);
+                      if (_focusFname.hasFocus) _focusFname.unfocus();
+                      if (_focusLname.hasFocus) _focusLname.unfocus();
+                      if (_focusEffects.hasFocus) _focusEffects.unfocus();
+                    },
                     child: AbsorbPointer(
                       child: TextFormField(
                         key: Key("dateField"),
@@ -167,6 +173,7 @@ class _SurveyState extends State<Survey> {
                   // city
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField<String>(
+                      key: Key("cityDropdown"),
                       decoration: InputDecoration(
                         labelText: "City",
                         prefixIcon: Icon(Icons.location_city),
@@ -192,6 +199,11 @@ class _SurveyState extends State<Survey> {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        if (_focusFname.hasFocus) _focusFname.unfocus();
+                        if (_focusLname.hasFocus) _focusLname.unfocus();
+                        if (_focusEffects.hasFocus) _focusEffects.unfocus();
+                      },
                       onChanged: (String value) {
                         setState(() {
                           _chosenCity = value;
@@ -203,6 +215,7 @@ class _SurveyState extends State<Survey> {
                   // gender
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField<String>(
+                      key: Key("genderDropdown"),
                       decoration: InputDecoration(
                         labelText: "Gender",
                         prefixIcon: Icon(Icons.wc),
@@ -228,6 +241,11 @@ class _SurveyState extends State<Survey> {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        if (_focusFname.hasFocus) _focusFname.unfocus();
+                        if (_focusLname.hasFocus) _focusLname.unfocus();
+                        if (_focusEffects.hasFocus) _focusEffects.unfocus();
+                      },
                       onChanged: (String value) {
                         setState(() {
                           _chosenGender = value;
@@ -239,6 +257,7 @@ class _SurveyState extends State<Survey> {
                   // vaccine type
                   DropdownButtonHideUnderline(
                     child: DropdownButtonFormField<String>(
+                      key: Key("vaccineDropdown"),
                       decoration: InputDecoration(
                         labelText: "Vaccine Type",
                         prefixIcon: Icon(Icons.medical_services),
@@ -264,6 +283,11 @@ class _SurveyState extends State<Survey> {
                           ),
                         );
                       }).toList(),
+                      onTap: () {
+                        if (_focusFname.hasFocus) _focusFname.unfocus();
+                        if (_focusLname.hasFocus) _focusLname.unfocus();
+                        if (_focusEffects.hasFocus) _focusEffects.unfocus();
+                      },
                       onChanged: (String value) {
                         setState(() {
                           _chosenVaccine = value;
@@ -311,11 +335,10 @@ class _SurveyState extends State<Survey> {
                         onPrimary: Color(0xFFF2AA4C), // foreground
                       ),
                       onPressed: () {
-                        _scaffoldKey.currentState.showSnackBar(
-                          SnackBar(
-                            content: Text('Submitted'),
-                          ),
-                        );
+                        Toast.show("Submitted", context,
+                            duration: Toast.LENGTH_SHORT,
+                            gravity: Toast.BOTTOM);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Survey(),),);
                       },
                       child: Text('Submit'),
                     ),
