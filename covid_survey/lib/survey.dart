@@ -1,3 +1,4 @@
+import 'package:covid_survey/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class Survey extends StatefulWidget {
@@ -18,6 +19,9 @@ class _SurveyState extends State<Survey> {
   FocusNode _focusDate = new FocusNode();
   FocusNode _focusEffects = new FocusNode();
   DateTime selectedDate = DateTime.now();
+  String _chosenGender;
+  String _chosenCity;
+  String _chosenVaccine;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +52,7 @@ class _SurveyState extends State<Survey> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // title
                   Container(
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(left: 10, right: 10),
@@ -160,8 +165,113 @@ class _SurveyState extends State<Survey> {
                   ),
                   SizedBox(height: 15),
                   // city
+                  DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        labelText: "City",
+                        prefixIcon: Icon(Icons.location_city),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      focusColor: Color(0xFFF2AA4C),
+                      value: _chosenCity,
+                      style: TextStyle(color: Colors.white),
+                      iconEnabledColor: Colors.black,
+                      items:
+                          cities.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _chosenCity = value;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 15),
                   // gender
+                  DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        labelText: "Gender",
+                        prefixIcon: Icon(Icons.wc),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      focusColor: Color(0xFFF2AA4C),
+                      value: _chosenGender,
+                      style: TextStyle(color: Colors.white),
+                      iconEnabledColor: Colors.black,
+                      items:
+                          genders.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _chosenGender = value;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 15),
                   // vaccine type
+                  DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        labelText: "Vaccine Type",
+                        prefixIcon: Icon(Icons.medical_services),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      focusColor: Color(0xFFF2AA4C),
+                      value: _chosenVaccine,
+                      style: TextStyle(color: Colors.white),
+                      iconEnabledColor: Colors.black,
+                      items: vaccines
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String value) {
+                        setState(() {
+                          _chosenVaccine = value;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 15),
                   // side effects
                   TextFormField(
                     key: Key("sideEffects"),
@@ -189,7 +299,10 @@ class _SurveyState extends State<Survey> {
                   ),
                   SizedBox(height: 15),
                   // submit
-                  if (_formKey.currentState != null &&
+                  if (_chosenGender != null &&
+                      _chosenCity != null &&
+                      _chosenVaccine != null &&
+                      _formKey.currentState != null &&
                       _formKey.currentState.validate())
                     ElevatedButton(
                       key: Key("submit"),
@@ -219,8 +332,21 @@ class _SurveyState extends State<Survey> {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Color(0xFF101820),
+              onPrimary: Color(0xFFF2AA4C),
+              surface: Color(0xFF101820),
+            ),
+          ),
+          child: child,
+        );
+      },
     );
     if (picked != null && picked != selectedDate)
       setState(() {
