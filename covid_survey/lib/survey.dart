@@ -10,7 +10,7 @@ class Survey extends StatefulWidget {
 class _SurveyState extends State<Survey> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final RegExp nameRegex = new RegExp(r"^[a-z ,.'-]+$");
+  final RegExp nameRegex = new RegExp(r"^[A-Za-zİĞÜŞÖÇğüşöç ,.'-]+$");
   TextEditingController _fNameController = TextEditingController();
   TextEditingController _lNameController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
@@ -338,7 +338,12 @@ class _SurveyState extends State<Survey> {
                         Toast.show("Submitted", context,
                             duration: Toast.LENGTH_SHORT,
                             gravity: Toast.BOTTOM);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Survey(),),);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Survey(),
+                          ),
+                        );
                       },
                       child: Text('Submit'),
                     ),
