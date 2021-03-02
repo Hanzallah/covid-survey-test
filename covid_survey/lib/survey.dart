@@ -11,6 +11,7 @@ class _SurveyState extends State<Survey> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final RegExp nameRegex = new RegExp(r"^[A-Za-zİĞÜŞÖÇğüşöç ,.'-]+$");
+  List<String> citiesList;
   TextEditingController _fNameController = TextEditingController();
   TextEditingController _lNameController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
@@ -23,6 +24,12 @@ class _SurveyState extends State<Survey> {
   String _chosenGender;
   String _chosenCity;
   String _chosenVaccine;
+
+  @override
+  void initState(){
+    super.initState();
+    citiesList = jsonCities.map<String>((e) => e['name'] as String).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +197,7 @@ class _SurveyState extends State<Survey> {
                       style: TextStyle(color: Colors.white),
                       iconEnabledColor: Colors.black,
                       items:
-                          cities.map<DropdownMenuItem<String>>((String value) {
+                          citiesList.map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
