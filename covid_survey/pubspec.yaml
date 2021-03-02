@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   toast: ^0.1.5
 
