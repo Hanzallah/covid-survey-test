@@ -2,10 +2,10 @@ import 'package:covid_survey/survey.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(CovidSurvey());
 }
 
-class MyApp extends StatelessWidget {
+class CovidSurvey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
