@@ -1,4 +1,3 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:covid_survey/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
@@ -26,26 +25,26 @@ class _SurveyState extends State<Survey> {
   String _chosenCity;
   String _chosenVaccine;
   var subscription;
-  bool isOnline = false;
+  bool isOnline = true;
 
   @override
   void initState() {
     super.initState();
 
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.wifi) {
-        setState(() {
-          isOnline = true;
-        });
-      } else {
-        setState(() {
-          isOnline = false;
-        });
-      }
-    });
+    // subscription = Connectivity()
+    //     .onConnectivityChanged
+    //     .listen((ConnectivityResult result) {
+    //   if (result == ConnectivityResult.mobile ||
+    //       result == ConnectivityResult.wifi) {
+    //     setState(() {
+    //       isOnline = true;
+    //     });
+    //   } else {
+    //     setState(() {
+    //       isOnline = false;
+    //     });
+    //   }
+    // });
     citiesList = jsonCities.map<String>((e) => e['name'] as String).toList();
   }
 
@@ -161,6 +160,7 @@ class _SurveyState extends State<Survey> {
                         SizedBox(height: 15),
                         // Birth date
                         GestureDetector(
+                          key: Key("dateField"),
                           onTap: () {
                             _selectDate(context);
                             if (_focusFname.hasFocus) _focusFname.unfocus();
@@ -169,7 +169,6 @@ class _SurveyState extends State<Survey> {
                           },
                           child: AbsorbPointer(
                             child: TextFormField(
-                              key: Key("dateField"),
                               controller: _dateController,
                               keyboardType: TextInputType.datetime,
                               focusNode: _focusDate,

@@ -23,12 +23,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   toast: ^0.1.5
+  appium_driver: ^0.2.2
+
 
 dev_dependencies:
+  test: any
   flutter_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the
