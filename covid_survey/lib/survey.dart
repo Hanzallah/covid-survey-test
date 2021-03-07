@@ -1,6 +1,7 @@
 import 'package:covid_survey/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:connectivity/connectivity.dart';
 
 class Survey extends StatefulWidget {
   @override
@@ -24,27 +25,26 @@ class _SurveyState extends State<Survey> {
   String _chosenGender;
   String _chosenCity;
   String _chosenVaccine;
-  var subscription;
+  var _connectivitySubscription;
   bool isOnline = true;
 
   @override
   void initState() {
     super.initState();
-
-    // subscription = Connectivity()
-    //     .onConnectivityChanged
-    //     .listen((ConnectivityResult result) {
-    //   if (result == ConnectivityResult.mobile ||
-    //       result == ConnectivityResult.wifi) {
-    //     setState(() {
-    //       isOnline = true;
-    //     });
-    //   } else {
-    //     setState(() {
-    //       isOnline = false;
-    //     });
-    //   }
-    // });
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile ||
+          result == ConnectivityResult.wifi) {
+        setState(() {
+          isOnline = true;
+        });
+      } else {
+        setState(() {
+          isOnline = false;
+        });
+      }
+    });
     citiesList = jsonCities.map<String>((e) => e['name'] as String).toList();
   }
 
@@ -370,7 +370,7 @@ class _SurveyState extends State<Survey> {
                                   duration: Toast.LENGTH_SHORT,
                                   gravity: Toast.BOTTOM);
                               // dispose the connection subscriber
-                              dispose();
+                              _connectivitySubscription.cancel();
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -435,7 +435,7 @@ class _SurveyState extends State<Survey> {
   @override
   dispose() {
     super.dispose();
-    subscription.cancel();
+    _connectivitySubscription.cancel();
     _fNameController.dispose();
     _lNameController.dispose();
     _dateController.dispose();
