@@ -23,11 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  connectivity: ^2.0.2
   cupertino_icons: ^1.0.0
   toast: ^0.1.5
   appium_driver: ^0.2.2
   flutter_offline: ^1.0.0
-
 
 dev_dependencies:
   test: any
