@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:toast/toast.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/services.dart';
 
 class Survey extends StatefulWidget {
   @override
@@ -60,6 +61,24 @@ class _SurveyState extends State<Survey> {
             color: Color(0xFFF2AA4C),
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.rotate_left,
+              key: Key("orientation"),
+              color: Color(0xFFF2AA4C),
+            ),
+            onPressed: () {
+              if (MediaQuery.of(context).orientation == Orientation.landscape) {
+                SystemChrome.setPreferredOrientations(
+                    [DeviceOrientation.portraitUp]);
+              } else {
+                SystemChrome.setPreferredOrientations(
+                    [DeviceOrientation.landscapeLeft]);
+              }
+            },
+          )
+        ],
         backgroundColor: Color(0xFF101820),
         elevation: 0,
       ),
@@ -211,7 +230,9 @@ class _SurveyState extends State<Survey> {
                             if (value.isEmpty)
                               return "Please enter your birth date";
                             if (selectedDate.year < 1950 ||
-                                selectedDate.year > DateTime.now().year)
+                                selectedDate.year > DateTime.now().year ||
+                                selectedDate.month > DateTime.now().month ||
+                                selectedDate.day > DateTime.now().day)
                               return "Year should be between 1950 and ${DateTime.now().year}";
                             return null;
                           },
@@ -413,8 +434,9 @@ class _SurveyState extends State<Survey> {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(1950),
-      lastDate: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      // lastDate: DateTime(
+      //     DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      lastDate: DateTime(2050),
       builder: (BuildContext context, Widget child) {
         return Theme(
           data: ThemeData.light().copyWith(

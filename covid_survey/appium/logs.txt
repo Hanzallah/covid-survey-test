@@ -1,0 +1,24 @@
+------------------------------------------------------
+>> Empty fields test
+-- Send button did not appear
+-- TEST PASSED
+------------------------------------------------------
+>> Incorrect fields test
+-- Send button did not appear
+-- TEST PASSED
+------------------------------------------------------
+>> Incorrect birth date test
+-- Send button did not appear
+-- TEST PASSED
+------------------------------------------------------
+>> Successful submission test
+-- Send button was clicked
+-- TEST PASSED
+------------------------------------------------------
+>> Context switch test
+-- Context Switched and text remained in fields
+-- TEST PASSED
+------------------------------------------------------
+>> Orientation change
+-- Send button was clicked with changed orientation
+-- TEST PASSED
