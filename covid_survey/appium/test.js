@@ -234,30 +234,3 @@ const opts = {
 
   driver.deleteSession();
 })();
-
-//   //Enter login page
-//   await driver.execute('flutter:waitFor', find.byValueKey('loginBtn'));
-//   await driver.elementSendKeys(find.byValueKey('emailTxt'), 'test@gmail.com')
-//   await driver.elementSendKeys(find.byValueKey('passwordTxt'), '123456')
-//   await driver.elementClick(find.byValueKey('loginBtn'));
-
-//   //Enter home page
-//   await driver.execute('flutter:waitFor', find.byValueKey('homeGreetingLbl'));
-//   assert.strictEqual(await driver.getElementText(find.byValueKey('homeGreetingLbl')), 'Welcome to Home Page');
-
-//   //Enter Page1
-//   await driver.elementClick(find.byValueKey('page1Btn'));
-//   await driver.execute('flutter:waitFor', find.byValueKey('page1GreetingLbl'));
-//   assert.strictEqual(await driver.getElementText(find.byValueKey('page1GreetingLbl')), 'Page1');
-//   await driver.elementClick(find.byValueKey('page1BackBtn'));
-
-//   //Enter Page2
-//   await driver.elementClick(find.byValueKey('page2Btn'));
-//   await driver.execute('flutter:waitFor', find.byValueKey('page2GreetingLbl'));
-//   assert.strictEqual(await driver.getElementText(find.byValueKey('page2GreetingLbl')), 'Page2');
-//   await driver.switchContext('NATIVE_APP');
-//   await driver.back();
-//   await driver.switchContext('FLUTTER');
-
-//   //Logout application
-//   await driver.elementClick(find.byValueKey('logoutBtn'));
