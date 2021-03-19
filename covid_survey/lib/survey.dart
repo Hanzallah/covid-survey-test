@@ -1,8 +1,6 @@
 import 'package:covid_survey/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 import 'package:toast/toast.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/services.dart';
 
 class Survey extends StatefulWidget {
@@ -27,26 +25,10 @@ class _SurveyState extends State<Survey> {
   String _chosenGender;
   String _chosenCity;
   String _chosenVaccine;
-  var _connectivitySubscription;
-  bool isOnline = true;
 
   @override
   void initState() {
     super.initState();
-    _connectivitySubscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.wifi) {
-        setState(() {
-          isOnline = true;
-        });
-      } else {
-        setState(() {
-          isOnline = false;
-        });
-      }
-    });
     citiesList = jsonCities.map<String>((e) => e['name'] as String).toList();
   }
 
@@ -82,29 +64,7 @@ class _SurveyState extends State<Survey> {
         backgroundColor: Color(0xFF101820),
         elevation: 0,
       ),
-      body: OfflineBuilder(
-        connectivityBuilder: (BuildContext context,
-            ConnectivityResult connectivity, Widget child) {
-          final bool connected = connectivity != ConnectivityResult.none;
-          return !connected
-              ? Container(
-                  child: Center(
-                    child: RichText(
-                      key: Key("networkError"),
-                      text: TextSpan(
-                        text: "Please check your network connection\n",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF101820),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              : child;
-        },
-        child: GestureDetector(
+      body: GestureDetector(
           onTap: () {
             if (_focusFname.hasFocus) _focusFname.unfocus();
             if (_focusLname.hasFocus) _focusLname.unfocus();
@@ -425,7 +385,6 @@ class _SurveyState extends State<Survey> {
             ),
           ),
         ),
-      ),
     );
   }
 
@@ -461,7 +420,6 @@ class _SurveyState extends State<Survey> {
   @override
   dispose() {
     super.dispose();
-    _connectivitySubscription.cancel();
     _fNameController.dispose();
     _lNameController.dispose();
     _dateController.dispose();
