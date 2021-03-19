@@ -14,8 +14,8 @@
 --> Ensure that npm is installed<br />
 --> `cd covid_survey` then `cd appium`
 --> Execute `npm install`, `npm install -g appium`<br />
---> Verify appium installation and fix any issues by executing `npm install -g appium-doctor` followed by `appium-doctor --android` or `appium-doctor --ios`<br />
+--> Verify appium installation: `npm install -g appium-doctor` followed by `appium-doctor --android` or `appium-doctor --ios`<br />
 --> Execute `npm i -g appium-flutter-driver` <br />
 -- Run the appium server `appium` <br />
---> Execute the test script by running `APPIUM_OS=android npm start` or `APPIUM_OS=ios npm start` in separate terminal<br />
+--> Execute the test script `APPIUM_OS=android npm start` or `APPIUM_OS=ios npm start` in a separate terminal<br />
 --> View the results in the logs.txt file<br />
