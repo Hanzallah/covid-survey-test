@@ -12,7 +12,7 @@
 
 ## Requirements for running the test script:
 --> Ensure that npm is installed<br />
---> `cd covid_survey` then `cd appium`
+--> `cd covid_survey` then `cd appium`<br />
 --> Execute `npm install`, `npm install -g appium`<br />
 --> Install Appium doctor `npm install -g appium-doctor`<br />
 --> Verify Appium installation by executing `appium-doctor --android` or `appium-doctor --ios`<br />
