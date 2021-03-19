@@ -9,6 +9,7 @@
 --> Execute `flutter pub get` to get the packages in the terminal<br />
 --> Execute `flutter run` in the covid  in the terminal<br />
 --> NOTE: If using VS code for flutter then run `Run > Start without Debugging`<br />
+--> NOTE: If you just want to run the application and not test then comment out `enableFlutterDriverExtension();` in main.dart<br />
 
 ## Requirements for running the test script:
 --> Ensure that npm is installed<br />
